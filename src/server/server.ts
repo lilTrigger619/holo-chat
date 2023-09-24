@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config(); // leave it here
-import { port, host, mongodb_url, node_env } from "./config";
+import { port, host} from "./config";
 import express from "express";
 const { createServer } = require("http");
 
