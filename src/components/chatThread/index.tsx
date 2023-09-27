@@ -16,7 +16,7 @@ export default function ChatThread() {
       <div className="t_content">
         <div className="mh-70">
           {threads.map((v, k) => (
-            <div>v</div>
+            <div key={k}>v</div>
           ))}
         </div>
       </div>
