@@ -1,33 +1,37 @@
-import {useState} from "react";
+import { useState, HTMLChangeEvent, HTMLSubmitEvent } from "react";
 
-export default function CoolInput(socket) {
+export default function CoolInput({ onSubmit }) {
   const [inputValue, setInputValue] = useState();
-  const onSubmit = (e) => {
-    e.preventDefault();
-    socket.emit("sendMessage", inputValue);
+
+  const onChange = (e: HTMLChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
-  const oChange = (e) => {
-    socket.emit("typing", { owner: "test_user" });
-  };
+
   return (
     <>
       <div className="input-group mb-3">
-        <form onSubmit={onSubmit}>
+        <form
+          onSubmit={(e: HTMLSubmitEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            onSubmit(inputValue);
+          }}
+        >
           <input
             type="text"
             className="form-control"
             placeholder="Recipient's username"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            onChange={onChange}
           />
           <button
             className="btn btn-outline-secondary"
             type="button"
             id="button-addon2"
-						onClick={onSubmit}
+            onClick={() => onSubmit(inputValue)}
           >
             Button
-          </button >
+          </button>
         </form>
       </div>
     </>

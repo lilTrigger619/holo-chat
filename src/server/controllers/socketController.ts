@@ -13,6 +13,7 @@ function SocketController(req:Request, res:Response, next) {
     });
 
     soc.on("sendMessage", (message, roomId) => {
+			console.log("message recieved", message);
       io.to(roomId).emit("recieveMessage", message);
     });
   });
