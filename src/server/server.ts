@@ -12,11 +12,12 @@ const server = createServer(app);
 export const io = new ChatServer(server);
 
 const socketController = require("./controllers/socketController");
-app.use(socketController);
 
 
 app.set("view engine", "ejs");
 app.use(express.static("./dist"));
+
+app.use(socketController);
 
 app.get("/", (req, res) => {
   const context = "Loading...";
