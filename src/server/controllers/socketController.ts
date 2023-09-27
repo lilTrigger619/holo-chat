@@ -1,6 +1,8 @@
+
+import type {Request, Response} from "express";
 import { io } from "../server";
 
-export default function SocketController() {
+function SocketController(req:Request, res:Response) {
   io.on("connection", (soc) => {
     soc.on("disconnect", () => {
       // disconnect the user
@@ -15,3 +17,5 @@ export default function SocketController() {
     });
   });
 }
+
+module.exports=  SocketController;
