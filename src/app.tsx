@@ -24,35 +24,36 @@ let render = 0;
 let messageCount = 0;
 export default function App() {
   const [threads, setThreads] = useState([]);
-	const [rec, setRec] = useState([]);
-	console.log("threads,,,", threads);
+  const [rec, setRec] = useState([]);
+  console.log("threads,,,", threads);
   //const [soc, setSoc] = useState(null);
   useEffect(() => {
     soc.emit("joinRoom", "testRoom");
     //console.log("room joined", soc);
   }, []);
   //soc.emit("chat message", "somethig");
+  const handleMessage = (message) => {
+    console.log("count ", messageCount++);
+    setRec(message);
+  };
   useEffect(() => {
-    soc.on("recieveMessage", (message) => {
-			console.log("count ", messageCount++);
-			setRec(message);
-    });
-		console.log("re-render ", render++);
+    soc.on("recieveMessage", handleMessage);
+    console.log("re-render ", render++);
+    return () => soc.off("recieveMessage", handleMessage);
   });
 
-	useEffect(()=>{
-		if(rec){
-			
-			console.log("message recieved bla", rec);
-			
+  useEffect(() => {
+    if (rec) {
+      console.log("message recieved bla", rec);
+
       setThreads((p) => [...p, rec]);
-			};
-			return ()=>setRec(false);
-	}, [rec]);
+    }
+    return () => setRec(false);
+  }, [rec]);
 
   const onSubmit = (inputValue: string) => {
     soc.emit("sendMessage", inputValue, "testRoom");
-		console.log("message sent", inputValue);
+    console.log("message sent", inputValue);
   };
 
   return (
