@@ -1,31 +1,30 @@
+const path = require("path");
+
 module.exports = {
 	entry: "./src/index.tsx",
-	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".json"],
-	},
 	module:{
 		rules:[
 			{
-			test: /\.tsx?$/,
+			test: /\.jsx?$/,
 				exclude: /node_modules/,
-				use:[
-					{
-						loader: "babel-loader",
-						options:{
-							presets:[
-								"@babel/preset-env",
-								"@babel/preset-react",
-								"@babel/preset-typescript",
-							],
-						},
-					},
-					"ts-loader"
-				]
+				use:"babel-loader" 
+			},
+			{
+				test: /\.tsx?$/,
+				exclude: /node_modules/,
+				use: "ts-loader"
 			},
 			{
 				test:/\.css$/i,
 				use: ["style-loader", "css-loader"],
 			}
 		],
-	}
+	},
+
+	resolve: {
+		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+    alias: {
+      '@components': path.resolve(__dirname, 'src/components/')
+    }
+  },
 }

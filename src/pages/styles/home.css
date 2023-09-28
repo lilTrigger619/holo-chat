@@ -1,0 +1,12 @@
+.info_card {
+	padding:0;
+	margin: 0;
+	width: 15rem;
+	height: 12rem;
+}
+.info_card .colo{
+	background-color: #007bff;
+	width: 100%;
+	height: 75%
+}
+.info_card .tex{}
