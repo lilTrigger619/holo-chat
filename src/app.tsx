@@ -6,7 +6,6 @@ const routes = createBrowserRouter([
     path: "/",
     element: <Homepage />,
   },
-  { path: "tt", element: <div>Hero</div> },
 ]);
 
 export default function App() {
